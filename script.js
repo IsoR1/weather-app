@@ -6,24 +6,26 @@ const getWeather = async (loc) => {
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&units=imperial`;
     const response = await fetch(`${apiUrl}&q=${loc}`);
     const data = await response.json();
-    console.log(data);
+    console.log(data.sys.country);
     return data
 }
 
 const processData = (data) => {
     return  {
         location: data.name,
+        country: data.sys.country,
         temp: data.main.temp,
         weather: data.weather[0].description,
     };
 };
 
 const DisplayData = (data) => {
-    const cityEl = document.querySelector(".city");
+    const locationEl = document.querySelector(".location");
+    const countryEl = document.querySelector(".country");
     const temperatureEl = document.querySelector(".temperature");
     const weatherEl = document.querySelector(".weather");
 
-    cityEl.textContent = data.location;
+    locationEl.textContent = `${data.location}, ${data.country}`;
     temperatureEl.textContent = `Temperature: ${Math.round(data.temp)}°F`;
     weatherEl.textContent = `Weather: ${data.weather}`;
 }
@@ -39,7 +41,7 @@ const DisplayData = (data) => {
 submitButton.addEventListener("click", e => {
     e.preventDefault();
 
-    const location = form.location.value
+    const location = form.locationForm.value
 
     getWeather(location)
     .then(data => {

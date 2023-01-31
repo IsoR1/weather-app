@@ -6,6 +6,7 @@
 body {
     width: 100vw;
     height: 100vh;
+    background-color: rgb(20, 20, 20);
 }
 
 .container {
@@ -19,3 +20,12 @@ body {
 .results {
 }
 
+label[for=locationForm],
+.results {
+    color: whitesmoke
+}
+
+.location {
+    font-size: 2rem;
+    font-weight: 800;
+}
